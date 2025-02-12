@@ -1,0 +1,28 @@
+
+
+import 'package:test/test.dart';
+import 'package:zakat_calculator/zakat_calculator.dart';
+
+void main() {
+  test("Zakat Calculation Test", () {
+    List<Asset> assets = [
+      Asset(type: "Cash", amount: 5000),
+      Asset(type: "Gold", amount: 10000),
+    ];
+
+    List<Liability> liabilities = [
+      Liability(type: "Loan", amount: 2000),
+    ];
+
+    ZakatService zakatService = ZakatService(
+      assets: assets,
+      liabilities: liabilities,
+      goldPricePerGram: 60.0,
+      silverPricePerGram: 0.8,
+      useGoldNisab: true,
+    );
+
+    double zakatDue = zakatService.calculateZakat();
+    expect(zakatDue, closeTo(312.5, 0.01)); // Expected value = 312.5
+  });
+}
